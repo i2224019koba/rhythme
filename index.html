@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RhythME</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #f5f5f5;
+        }
+
+        /* ===== ロゴ ===== */
+        .logo {
+            text-align: center;
+            font-size: 28px;
+            font-weight: bold;
+            padding: 30px 0 10px;
+        }
+
+        /* 共通 */
+        .screen {
+            display: none;
+            min-height: 100vh;
+        }
+
+        /* ===== TOP画面 ===== */
+        .home-screen {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* グリッド中央固定 */
+        .icon-grid {
+            display: grid;
+            gap: 30px;
+            justify-content: center;
+        }
+
+        /* スマホ */
+        @media (max-width: 768px) {
+            .icon-grid {
+                grid-template-columns: 1fr;
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+
+        /* PC：4 + 3 を中央 */
+        @media (min-width: 769px) {
+            .icon-grid {
+                grid-template-columns: repeat(4, 180px);
+            }
+        }
+
+        .icon {
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .icon img {
+            width: 180px;
+            height: 180px;
+            border-radius: 25px;
+            object-fit: cover;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+            transition: 0.3s;
+        }
+
+        .icon img:hover {
+            transform: scale(1.05);
+        }
+
+        .icon-title {
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+        /* ===== 曲一覧画面 ===== */
+        .playlist-screen {
+            background: white;
+        }
+
+        .top-btn {
+            text-align: center;
+            padding: 20px;
+            font-weight: bold;
+            border-bottom: 1px solid #eee;
+            cursor: pointer;
+        }
+
+        .song {
+            padding: 18px 20px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .song-title {
+            font-weight: bold;
+        }
+
+        .artist {
+            font-size: 14px;
+            color: gray;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ===== TOP画面 ===== -->
+    <div class="screen home-screen" id="home">
+
+        <div class="logo">
+            <img src="photo/logo.png" alt="RhythME Logo">
+        </div>
+
+        <div class="icon-grid">
+
+            <div class="icon" onclick="openPlaylist('morning')">
+                <img src="photo/morning.png">
+                <div class="icon-title">Morning</div>
+            </div>
+
+            <div class="icon" onclick="openPlaylist('night')">
+                <img src="photo/night.png">
+                <div class="icon-title">Night</div>
+            </div>
+
+            <div class="icon" onclick="openPlaylist('summer')">
+                <img src="photo/summer.png">
+                <div class="icon-title">Summer</div>
+            </div>
+
+            <div class="icon" onclick="openPlaylist('winter')">
+                <img src="photo/winter.png">
+                <div class="icon-title">Winter</div>
+            </div>
+
+            <div class="icon" onclick="openPlaylist('up')">
+                <img src="photo/up.png">
+                <div class="icon-title">Up</div>
+            </div>
+
+            <div class="icon" onclick="openPlaylist('cute')">
+                <img src="photo/cute.png">
+                <div class="icon-title">Cute</div>
+            </div>
+
+            <div class="icon" onclick="openPlaylist('sexy')">
+                <img src="photo/sexy.png">
+                <div class="icon-title">Sexy</div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- ===== 曲一覧画面 ===== -->
+    <div class="screen playlist-screen" id="playlist">
+        <div class="top-btn" onclick="goHome()">← RhythME</div>
+        <div id="songList"></div>
+    </div>
+
+
+
+    <script>
+        const playlists = {
+            morning: [["What Makes You Beautiful", "ワンダイレクション"],
+            ["Livve While We're Young", "ワンダイレクション"],
+            ["One Thing", "ワンダイレクション"],
+            ["You Belong With Me", "Taylor Swift"],
+            ["Good Time", "Carly Rae Jepsen, OwlCity"],
+            ["Don't Stop Me Now", "Queen"],
+            ["HELLO", "Official髭男dism"],
+            ["いばら", "Ado"],
+            ["StaRt", "Mrs.GREEN APPLE"],
+            ["In the Morning", "Mrs.GREEN APPLE"],
+            ["hug", "Mrs.GREEN APPLE"],
+            ["庶幾の唄", "Mrs.GREEN APPLE"],
+            ["PLAY", "SEKAI NO OWARI"],
+            ["開幕宣言", "Novelbright"],
+            ["リバイバル (feat.asmi)", "wacci"],
+            ["10時の方角", "sumika"],
+            ["sabotage", "緑黄色社会"],
+            ["カラッといこう！", "ZARD"],
+            ["太陽の地図", "MISIA"],
+            ["Have a nice day", "西野カナ"],
+            ["All Day Long Lady", "E-girls"],
+            ["主人公", "SUPER BEAVER"],
+            ["なないろ", "BUMP OF CHICKEN"],
+            ["優しいあの子", "スピッツ"],
+            ["フレア", "Superfly"],
+            ["急☆上☆Show!!", "SUPER EIGHT"],
+            ["weeeek", "NEWS"],
+            ["10時の方角", "sumika"],
+            ["Ready Go", "Hey!Say!JUMP"],
+            ["Wake up!", "WEST."],
+            ["", "sumika"],
+            ["曲4", "アーティスト4"]
+            ],
+            night: [
+                ["踊り子", "Vaundy"],
+                ["more than words", "羊文学"],
+                ["Dragon Night", "SEKAI NO OWARI"],
+                ["曲4", "アーティスト4"]
+            ],
+
+            summer: [
+                ["真夏の果実", "サザンオールスターズ"],
+                ["波乗りジョニー", "桑田佳祐"],
+                ["夏色", "ゆず"],
+                ["曲4", "アーティスト4"]
+            ],
+
+            winter: [
+                ["All I Want for Christmas Is You", "Mariah Carey"],
+                ["Last Christmas", "Wham!"],
+                ["", "アーティスト3"],
+                ["曲4", "アーティスト4"]
+            ],
+
+            up: [
+                ["曲1", "アーティスト1"],
+                ["曲2", "アーティスト2"],
+                ["曲3", "アーティスト3"],
+                ["曲4", "アーティスト4"]
+            ],
+
+            cute: [
+                ["曲1", "アーティスト1"],
+                ["曲2", "アーティスト2"],
+                ["曲3", "アーティスト3"],
+                ["曲4", "アーティスト4"]
+            ],
+
+            sexy: [
+                ["曲1", "アーティスト1"],
+                ["曲2", "アーティスト2"],
+                ["曲3", "アーティスト3"],
+                ["曲4", "アーティスト4"]
+            ],
+
+        };
+
+        function showScreen(id) {
+            document.querySelectorAll(".screen").forEach(s => s.style.display = "none");
+            document.getElementById(id).style.display = "block";
+        }
+
+        function openPlaylist(name) {
+            const list = document.getElementById("songList");
+            list.innerHTML = "";
+
+            playlists[name].forEach(song => {
+                list.innerHTML += `
+            <div class="song">
+                <div class="song-title">${song[0]}</div>
+                <div class="artist">${song[1]}</div>
+            </div>
+        `;
+            });
+
+            showScreen("playlist");
+        }
+
+        function goHome() {
+            showScreen("home");
+        }
+
+        window.onload = function () {
+            showScreen("home");
+        };
+    </script>
+
+</body>
+
+</html>
