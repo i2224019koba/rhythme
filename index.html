@@ -126,10 +126,98 @@
             font-size: 14px;
             color: gray;
         }
+
+        .playlist-description {
+            text-align: center;
+            padding: 30px 20px;
+            font-weight: 500;
+            font-size: 16px;
+            color: #555;
+        }
+
+        .project-box {
+            margin: 60px auto 80px;
+            max-width: 700px;
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
+            text-align: center;
+        }
+
+        .project-box h2 {
+            margin-bottom: 20px;
+            font-size: 20px;
+            letter-spacing: 0.1em;
+        }
+
+        .project-box p {
+            font-size: 15px;
+            line-height: 1.9;
+            color: #555;
+        }
+
+        .intro-screen {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+            color: white;
+
+
+
+        }
+
+        .intro-inner h1 {
+            font-size: 48px;
+            letter-spacing: 0.2em;
+            margin-bottom: 20px;
+        }
+
+        .intro-text {
+            font-size: 16px;
+            margin-bottom: 40px;
+            line-height: 1.8;
+            color: #666;
+        }
+
+        .enter-btn {
+            padding: 12px 30px;
+            border: none;
+            background: black;
+            color: white;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: 0.3s;
+        }
+
+        .enter-btn:hover {
+            background: #333;
+        }
     </style>
 </head>
 
 <body>
+    <!-- ===== 作品TOP ===== -->
+    <div class="screen intro-screen" id="intro">
+
+        <div class="intro-inner">
+            <h1>RhythME</h1>
+
+            <p class="intro-text">
+                感情と音楽が重なる瞬間。<br>
+                色んな感情に寄り添えるプレイリストを。
+            </p>
+
+            <button class="enter-btn" onclick="showScreen('home')">
+                ENTER
+            </button>
+        </div>
+
+    </div>
+
 
     <!-- ===== TOP画面 ===== -->
     <div class="screen home-screen" id="home">
@@ -137,6 +225,7 @@
         <div class="logo">
             <img src="photo/logo.png" alt="RhythME Logo">
         </div>
+
 
         <div class="icon-grid">
 
@@ -160,9 +249,15 @@
                 <div class="icon-title">Winter</div>
             </div>
 
+            <div class="icon" onclick="openPlaylist('up')">
+                <img src="photo/up.png">
+                <div class="icon-title">Up</div>
+            </div>
 
-
-
+            <div class="icon" onclick="openPlaylist('cute')">
+                <img src="photo/cute.png">
+                <div class="icon-title">Cute</div>
+            </div>
 
             <div class="icon" onclick="openPlaylist('sexy')">
                 <img src="photo/sexy.png">
@@ -175,11 +270,25 @@
             </div>
 
         </div>
+
+        <div class="project-box">
+            <h2>About RhythME</h2>
+            <p>
+                RhythMEは、一日の感情やシチュエーションと音楽をリンクさせた作品です。
+                朝・夜・季節・感情・場面によって変化する音楽を通して、
+                “その瞬間の自分”と向き合うきっかけをつくります。<br>
+                こんな時どんな曲を聴くか考えてみてください<br>
+                私たちは音楽に支えられていると感じると思います<br>
+                私が選んだプレイリストです。
+            </p>
+        </div>
     </div>
 
     <!-- ===== 曲一覧画面 ===== -->
     <div class="screen playlist-screen" id="playlist">
         <div class="top-btn" onclick="goHome()">← RhythME</div>
+        <div id="playlistDescription" class="playlist-description"></div>
+
         <div id="songList"></div>
     </div>
 
@@ -187,49 +296,58 @@
 
     <script>
         const playlists = {
-            morning: [["What Makes You Beautiful", "ワンダイレクション"],
-            ["Livve While We're Young", "ワンダイレクション"],
-            ["One Thing", "ワンダイレクション"],
-            ["You Belong With Me", "Taylor Swift"],
-            ["Good Time", "Carly Rae Jepsen, OwlCity"],
-            ["Don't Stop Me Now", "Queen"],
-            ["comethru", "Jeremy Zucker"],
-            ["Sucker for You", "Matt Terry"],
-            ["Me Too", "Meghan Trainor"],
-            ["Going,Going,Gone", "knox"],
-            ["Say Yes", "KiD RAiN"],
-            ["Really Like You", "GYUBIN"],
-            ["HELLO", "Official髭男dism"],
-            ["いばら", "Ado"],
-            ["StaRt", "Mrs.GREEN APPLE"],
-            ["In the Morning", "Mrs.GREEN APPLE"],
-            ["hug", "Mrs.GREEN APPLE"],
-            ["庶幾の唄", "Mrs.GREEN APPLE"],
-            ["PLAY", "SEKAI NO OWARI"],
-            ["開幕宣言", "Novelbright"],
-            ["リバイバル (feat.asmi)", "wacci"],
-            ["10時の方角", "sumika"],
-            ["起きろ！", "ハンブレッダーズ"],
-            ["sabotage", "緑黄色社会"],
-            ["カラッといこう！", "ZARD"],
-            ["太陽の地図", "MISIA"],
-            ["Have a nice day", "西野カナ"],
-            ["茜", "ヨルシカ"],
-            ["ハロ", "yama,ぼっちぼろまる"],
-            ["All Day Long Lady", "E-girls"],
-            ["主人公", "SUPER BEAVER"],
-            ["なないろ", "BUMP OF CHICKEN"],
-            ["優しいあの子", "スピッツ"],
-            ["フレア", "Superfly"],
-            ["急☆上☆Show!!", "SUPER EIGHT"],
-            ["weeeek", "NEWS"],
-            ["10時の方角", "sumika"],
-            ["Ready Go", "Hey!Say!JUMP"],
-            ["Wake up!", "WEST."],
-            ["", ""],
-            ["曲4", "アーティスト4"]
+            morning: [
+                ["What Makes You Beautiful", "ワンダイレクション"],
+                ["Livve While We're Young", "ワンダイレクション"],
+                ["One Thing", "ワンダイレクション"],
+                ["You Belong With Me", "Taylor Swift"],
+                ["Good Time", "Carly Rae Jepsen, OwlCity"],
+                ["Don't Stop Me Now", "Queen"],
+                ["comethru", "Jeremy Zucker"],
+                ["Sucker for You", "Matt Terry"],
+                ["Me Too", "Meghan Trainor"],
+                ["Going,Going,Gone", "knox"],
+                ["Say Yes", "KiD RAiN"],
+                ["Really Like You", "GYUBIN"],
+                ["HELLO", "Official髭男dism"],
+                ["いばら", "Ado"],
+                ["StaRt", "Mrs.GREEN APPLE"],
+                ["In the Morning", "Mrs.GREEN APPLE"],
+                ["hug", "Mrs.GREEN APPLE"],
+                ["庶幾の唄", "Mrs.GREEN APPLE"],
+                ["PLAY", "SEKAI NO OWARI"],
+                ["開幕宣言", "Novelbright"],
+                ["リバイバル (feat.asmi)", "wacci"],
+                ["10時の方角", "sumika"],
+                ["起きろ！", "ハンブレッダーズ"],
+                ["sabotage", "緑黄色社会"],
+                ["カラッといこう！", "ZARD"],
+                ["太陽の地図", "MISIA"],
+                ["Have a nice day", "西野カナ"],
+                ["茜", "ヨルシカ"],
+                ["ハロ", "yama,ぼっちぼろまる"],
+                ["All Day Long Lady", "E-girls"],
+                ["主人公", "SUPER BEAVER"],
+                ["なないろ", "BUMP OF CHICKEN"],
+                ["優しいあの子", "スピッツ"],
+                ["フレア", "Superfly"],
+                ["急☆上☆Show!!", "SUPER EIGHT"],
+                ["weeeek", "NEWS"],
+                ["10時の方角", "sumika"],
+                ["Ready Go", "Hey!Say!JUMP"],
+                ["Wake up!", "WEST."]
             ],
             night: [
+                ["All Too Well", "Taylor Swift"],
+                ["The Very First Night", "Taylor Swift"],
+                ["美女と野獣", " Ariana Grande & John Legend"],
+                ["ocean eyes", "Billie Eilish"],
+                ["Bags", "Clairo"],
+                ["In the Night", "Fly By Midnight"],
+                ["Collision", "Stray Kids"],
+                ["Life Goes On", "BTS"],
+                ["Sun and Moon", "aespa"],
+                ["My Night Routine", "flomis_9"],
                 ["踊り子", "Vaundy"],
                 ["more than words", "羊文学"],
                 ["Dragon Night", "SEKAI NO OWARI"],
@@ -238,13 +356,21 @@
                 ["夜撫でるメノウ", "Ayase"],
                 ["逆夢", "King Gnu"],
                 ["満ちていく", "藤井風"],
-                ["", ""],
-                ["", ""],
-                ["", ""],
-                ["", ""],
-                ["", ""],
-                ["", ""],
+                ["死ぬのがいいわ", "藤井 風"],
+                ["まぶた", "Vaundy"],
+                ["呼吸のように", "Vaundy"],
+                ["グッバイバイ", "冨岡 愛"],
+                ["晩餐歌 - Bansanka", "tuki."],
+                ["Silly", "家入レオ"],
+                ["瞳の奥の銀河（ミルキーウェイ）", "Flower"],
+                ["未完成", "家入レオ"],
+                ["One Day", "Omoinotake"],
+                ["FOOL", "羊文学"],
+                ["歌舞伎町の女王", "椎名林檎"],
+                ["hanataba", "milet"],
+                ["Prover", "molet"],
                 ["ナイトグルーヴ", "iri"],
+                ["今宵、月が見えずとも", "ポルノグラフィティ"],
                 ["遠い星を数えて", "ZARD"],
                 ["星の数え方", "私立恵比寿中学"],
                 ["Monster", "嵐"],
@@ -260,20 +386,28 @@
                 ["イケナイ太陽", "ORANAGE RANGE"],
                 ["ミュージック・アワー", "ポルノグラフィティ"],
                 ["睡蓮花", "湘南乃風"],
+                ["島人ぬ宝", "BEGIN"],
                 ["若者のすべて", "フジファブリック"],
+                ["ふたりの愛ランド", "石川優子&チャゲ"],
                 ["花火", "aiko"],
                 ["HANABI", "Mr.Children"],
                 ["SUMMER SONG", "YUI"],
+                ["GO GO サマー!", "KARA"],
+                ["Esperanza", "西野カナ"],
                 ["君がくれた夏", "家入レオ"],
                 ["真夏の夜の匂いがする", "あいみょん"],
                 ["青と夏", "Mrs.GREEN APPLE"],
                 ["点描の唄(feat.井上苑子)", "Mrs.GREEN APPLE"],
                 ["Slow & Easy", "平井大"],
+                ["わたがし", "back number"],
+                ["八月の夜", "Silent Siren"],
+                ["夏のどこかへ", "WANIMA"],
                 ["夏恋センセイション", "マカロニえんぴつ"],
                 ["夏夜のマジック", "indigo la End"],
                 ["解夏", "WurtS"],
                 ["SUMMER BREEZE", "go!go!vanillas"],
                 ["時よ止まれ", "ILLIT"],
+                ["E.G. summer RIDER", "E-girls"],
                 ["好きというのはロックだぜ！", "乃木坂46"],
                 ["ナチュメロらんでぶー", "私立恵比寿中学"],
                 ["夏疾風", "嵐"],
@@ -283,9 +417,7 @@
                 ["渚のお姉サマー", "NEWS"],
                 ["WANNA BEEE!!!", "Kis-My-Ft2"],
                 ["夕空", "Kis-My-Ft2"],
-                ["Summer Dreamer", "WEST."],
-                ["", ""],
-                ["曲4", "アーティスト4"]
+                ["Summer Dreamer", "WEST."]
             ],
 
             winter: [
@@ -331,17 +463,156 @@
                 ["White Love", "Hey!Say!JUMP"],
                 ["SNOW DOMEの約束", "Kis-My-Ft2"],
                 ["Holy night with you", "Kis-My-Ft2"],
-                ["Lovin'you", "King&Prince"],
-                ["曲4", "アーティスト4"]
+                ["Lovin'you", "King&Prince"]
             ],
 
+            up: [
+                ["FANTASTIC BABY", "BIGBANG"],
+                ["BANG BANG BANG -JP Ver.-", "BIGBANG"],
+                ["ピタカゲ（CROOKED）-JPN-", "G-DRAGON（from BIGBANG）"],
+                ["APT.", "ROSÉ & Bruno Mars"],
+                ["Bling-Bang-Bang-Born", "Creepy Nuts"],
+                ["のびしろ", "Creepy Nuts"],
+                ["ばかまじめ", "Creepy Nuts, Ayase & 幾田りら"],
+                ["Habit", "SEKAI NO OWARI"],
+                ["あつまれ！パーティーピーポー", "ヤバイTシャツ屋さん"],
+                ["かわE", "ヤバイTシャツ屋さん"],
+                ["GOOD LUCKY!!!!!（starring グッキー）", "グッキー"],
+                ["Ki・mi・ni・mu・chu", "EXILE"],
+                ["PERFECT HUMAN", "RADIO FISH"],
+                ["ココロオドル -original version-", "nobodyknows+"],
+                ["女々しくて", "ゴールデンボンバー"],
+                ["HOT LIMIT", "T.M.Revolution"],
+                ["EZ DO DANCE", "TRF"],
+                ["survival dAnce ～no no cry more～", "TRF"],
+                ["ギフト", "ET-KING"],
+                ["恋心（KOI-GOKORO）", "B'z"],
+                ["拝啓、少年よ", "Hump Back"],
+                ["LILLY", "Hump Back"],
+                ["Shout Baby", "緑黄色社会"],
+                ["スターマーカー", "KANA-BOON"],
+                ["Dang Ding Dong", "sumika"],
+                ["アゲイン", "　WANIMA"],
+                ["Music!!!", "AAA"],
+                ["倍倍FIGHT!", "CANDY TUNE"],
+                ["LOVE マシーン", "モーニング娘。"],
+                ["EBINOMICS", "私立恵比寿中学"],
+                ["ゼッテーアナーキー", "私立恵比寿中学"],
+                ["ワンドリンク別", "マカロニえんぴつ"],
+                ["CHEERS", "Mrs. GREEN APPLE"],
+                ["Doodle", "Mrs. GREEN APPLE"],
+                ["PARTY", "Mrs. GREEN APPLE"],
+                ["Simple", "Mrs. GREEN APPLE"],
+                ["道", "GReeeeN"],
+                ["4 ever ドーン!!!!!", "GReeeeN"],
+                ["俺らリサイタルズ", "リサイタルズ"],
+                ["イイじゃん", "M!LK"],
+                ["Troblemaker", "嵐"],
+                ["へそ曲がり", "SUPER EIGHT"],
+                ["ズッコケ男道", "SUPER EIGHT"],
+                ["チャンカパーナ", "NEWS"],
+                ["ネガティブファイター", "Hey!Say!JUMP"],
+                ["Thank you じゃん！", "Kis-My-Ft2"],
+                ["全力ファイター", "Kis-My-Ft2"],
+                ["てぃーてぃーてぃーてれって てれてぃてぃてぃ 〜だれのケツ〜", "舞祭組"],
+                ["浪速一等賞!", "WEST."],
+                ["バリ ハピ", "WEST."],
+                ["Big Shot!!!", "WEST."],
+                ["Big Shot!!!", "WEST."],
+                ["希望の丘", "King&Prince"],
+                ["Good Luck!", "SixTONES"],
+                ["カリスマックス", "Snow Man"],
+                ["ブラザービート", "Snow Man"]
+            ],
 
-
+            cute: [
+                ["Candy Pop", "TWICE"],
+                ["YES or YES", "TWICE"],
+                ["TT", "TWICE"],
+                ["Step and step", "NiziU"],
+                ["Make you happy", "NiziU"],
+                ["Teddy Bear", "STAYC"],
+                ["Almond Chocolate", "ILLIT"],
+                ["T.B.H", "QWER"],
+                ["Confession", "KIM CHAEWOMN&Dalpalan"],
+                ["STYLE", "Hearts2Hearts"],
+                ["恋するフォーチュンクッキー", "AKB48"],
+                ["Everyday、カチューシャ", "AKB48"],
+                ["ポニーテールとシュシュ", "AKB48"],
+                ["ロマンスのスタート", "乃木坂46"],
+                ["ジコチューで行こう！", "乃木坂46"],
+                ["シークレットグラフィティー", "乃木坂46"],
+                ["キスの手裏剣", "乃木坂46"],
+                ["I see...", "乃木坂46"],
+                ["君に叱られた", "乃木坂46"],
+                ["キュン", "日向坂46"],
+                ["ドレミソラシド", "日向坂46"],
+                ["アザトカワイイ", "日向坂46"],
+                ["Am I ready?", "日向坂46"],
+                ["わたしの一番かわいいところ", "FRUITS ZIPPER"],
+                ["JAM", "FRUITS ZIPPER"],
+                ["ピポパポ", "FRUITS ZIPPER"],
+                ["かわいいだけじゃだめですか？", "CUTIE STREET"],
+                ["ひたむきシンデレラ！", "CUTIE STREET"],
+                ["ハイタテキ！", "私立恵比寿中学"],
+                ["ラブリースマイリーベイビー", "私立恵比寿中学"],
+                ["サクラ・ゴーラウンド", "私立恵比寿中学"],
+                ["COLOR（feat. Momoiro Clover Z）", "私立恵比寿中学"],
+                ["明日もきっと70点（feat. Megu Shinohara）", "私立恵比寿中学"],
+                ["オメカシ・フィーバー", "私立恵比寿中学"],
+                ["きっとインフィニティー！", "インフィニティーズ（私立恵比寿中学）"],
+                ["Darling", "arban"],
+                ["ポップコーン!!", "MAISONdes"],
+                ["O.M.G", "カライドスコープ"],
+                ["春夏秋冬", "Little Glee Monster"],
+                ["明日の私に幸あれ", "ナナヲアカリ"],
+                ["可愛くてごめん（feat. かぴ）", "HoneyWorks"],
+                ["青空のラプソディ", "fhána"],
+                ["LOVE GOOD TIME", "SpecialThanks"],
+                ["かわいいメモリアル", "超ときめき♡宣伝部"],
+                ["超最強", "超ときめき♡宣伝部"],
+                ["最上級にかわいいの！", "超ときめき♡宣伝部"],
+                ["とくべチュ、して", "=LOVE"],
+                ["ブルーハワイレモン", "=JOY"],
+                ["あたしを彼女にしたいなら", "コレサワ"],
+                ["さくらんぼ", "大塚 愛"],
+                ["PEACH", "大塚 愛"],
+                ["SMILY", "大塚 愛"],
+                ["SAYONARA MAYBE", "NOMELON NOLEMON"],
+                ["月曜日戦争", "吉澤嘉代子"],
+                ["SURF", "ポルカドットスティングレイ"],
+                ["HELLO", "YUI"],
+                ["元彼女のみなさまへ", "コレサワ"],
+                ["lovin'", "Mrs. GREEN APPLE"],
+                ["恋のワールド", "GReeeeN"],
+                ["モテたいぜ トゥナイト", "Kis-My-Ft2"],
+                ["MU-CHU-DE 恋してる", "Kis-My-Ft2"],
+                ["メガ☆ラブ", "Kis-My-Ft2"],
+                ["運命Girl", "Kis-My-Ft2"],
+                ["わんダフォー", "横尾渉 & 藤ヶ谷太輔"],
+                ["キスしちゃうぞ", "Kis-My-Ft2"],
+                ["Love is you", "Kis-My-Ft2"],
+                ["プリンシパルの君へ", "WEST."],
+                ["Chau#", "Hey! Say! JUMP"],
+                ["初心LOVE（うぶらぶ）", "なにわ男子"]
+            ],
 
             sexy: [
-                ["曲1", "アーティスト1"],
                 ["I Don't Think That I Like Her", "Charlie Puth"],
-                ["Blue Jeans", "HANA"],
+                ["Sucker for You", "Mat Terry"],
+                ["Don't Leave Me Alone", "David Guetta"],
+                ["I Wish(feat. Mabel)", "Joel Corry"],
+                ["Bite Me", "Avril Lavigne"],
+                ["Life Is Sweeter", "Descendants - Cast"],
+                ["Sugarcoat(NATTY Solo)", "KISS OF LIFE"],
+                ["UN-NORMAL", "Queenz Eye"],
+                ["BF", "Kandis"],
+                ["Sweet Crazy Love", "ODD EYE CIECLE"],
+                ["Moon", "EVERGLOW"],
+                ["Bother Me", "CHUNG HA"],
+                ["enchanter night", "Billlie"],
+                ["NEW LOOK", "MISAMO"],
+                ["Blue Jeans", "アーティスト3"],
                 ["フロリジナル", "Mrs.GREEN APPLE"],
                 ["GOOD DAY", "Mrs.GREEN APPLE"],
                 ["Attitude", "Mrs.GREEN APPLE"],
@@ -351,6 +622,7 @@
                 ["rose feat. Vaaundy", "chilli Beans"],
                 ["きらり", "藤井風"],
                 ["Feelin' Go(o)d", "藤井風"],
+                ["チューリップ", "indigo la End"],
                 ["ノーダウト", "Official髭男dism"],
                 ["Present", "TOMOO"],
                 ["Super Ball", "TOMOO"],
@@ -360,21 +632,20 @@
                 ["STAY TUNE", "Suchmos"],
                 ["My Way", "Def Tech"],
                 ["Bring me up!", "久保田利伸"],
-                ["", ""],
+                ["喜劇", "星野源"],
+                ["Week End", "星野源"],
                 ["come again", "m-flo"],
                 ["BF", "moumoon"],
+                ["会いたいわ", "iri"],
                 ["Wonderland", "iri"],
+                ["I'll be here", "私立恵比寿中学"],
+                ["踊るロクデナシ", "私立恵比寿中学"],
+                ["トレンディガール", "私立恵比寿中学"],
                 ["TRUMAN", "礼賛"],
-                ["", ""],
-                ["", ""],
-                ["", ""],
                 ["Flamingo", "Kis-My-Ft2"],
                 ["CHUDOKU", "Kis-My-Ft2"],
-                ["", ""],
-                ["", ""],
-                ["", ""],
-                ["", ""],
-                ["曲4", "アーティスト4"]
+                ["I know", "King&Prince"],
+                ["Theater", "King&Prince"]
             ],
 
             wedding: [
@@ -405,6 +676,7 @@
                 ["虹", "菅田将暉"],
                 ["家族になろうよ", "福山雅治"],
                 ["バンザイ〜好きでよかった〜", "ウルフルズ"],
+                ["君を守って 君を愛して", "サンボマスター"],
                 ["1人で生きていたならば", "SUPER BEAVER"],
                 ["Voyage", "浜崎あゆみ"],
                 ["Happiness", "シェネル"],
@@ -424,9 +696,18 @@
                 ["エスコート", "King&Prince"],
                 ["I Wish", "なにわ男子"],
                 ["サムシング・ニュー", "WEST."]
-
             ]
 
+        };
+        const playlistDescriptions = {
+            morning: "爽やかな朝に聴きたい、前向きになれるプレイリスト。",
+            night: "夜にしっとり浸れる、エモいプレイリスト。",
+            summer: "太陽と海と夕空が似合う、夏全開のプレイリスト。",
+            winter: "寒い季節に寄り添う、あたたかいプレイリスト。",
+            up: "カラオケで盛り上がれる、気持ちあげれるプレイリスト。",
+            cute: "とにかくかわいいが詰まったキラキラプレイリスト。",
+            sexy: "ちょっと大人で色気のあるプレイリスト。",
+            wedding: "幸せな瞬間を彩る、特別な日のプレイリスト。"
         };
 
         function showScreen(id) {
@@ -436,7 +717,10 @@
 
         function openPlaylist(name) {
             const list = document.getElementById("songList");
+            const desc = document.getElementById("playlistDescription");
+
             list.innerHTML = "";
+            desc.innerHTML = playlistDescriptions[name];
 
             playlists[name].forEach(song => {
                 list.innerHTML += `
@@ -455,8 +739,11 @@
         }
 
         window.onload = function () {
-            showScreen("home");
+            showScreen("intro");
         };
+
+
+
     </script>
 
 </body>
